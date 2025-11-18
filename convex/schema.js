@@ -2,6 +2,7 @@ import { defineTable, defineSchema } from "convex/server";
 import { v } from "convex/values";
 
 export default defineSchema({
+  //User Table
   users: defineTable({
     name: v.string(),
     email: v.string(),
@@ -18,4 +19,91 @@ export default defineSchema({
     .index("by_username", ["username"]) //Loookup username for public
     .searchIndex("search_name", { searchField: "name" })
     .searchIndex("search_email", { searchField: "email" }),
+
+  //Post Table
+  posts: defineTable({
+    title: v.string(),
+    content: v.string(),
+    status: v.union(v.literal("draft"), v.literal("published")),
+
+    //Author relationship
+    authorId: v.id("users"),
+
+    //Content Metadata
+    tags: v.array(v.string()),
+    catagory: v.optional(v.string()),
+    featuredImageUrl: v.optional(v.string()),
+
+    //Activity Timestamps
+    createdAt: v.number(),
+    updatedAt: v.number(),
+    publishedAt: v.optional(v.number()),
+    scheduledFor: v.optional(v.number()), //For future publishing
+
+    //Engagement Metrics
+    views: v.number(),
+    likes: v.number(),
+  })
+    .index("by_author", ["authorId"])
+    .index("by_status", ["status"])
+    .index("by_published", ["status", "publishedAt"])
+    .index("by_author_status", ["authorId", "status"])
+    .searchIndex("search_content", { searchField: "title" }),
+
+  //Comments Table
+  comments: defineTable({
+    postId: v.id("posts"),
+    authorId: v.optional(v.id("users")),
+    authorName: v.string(),
+    authorEmail: v.optional(v.string()),
+
+    content: v.string(),
+    status: v.union(
+      v.literal("pending"),
+      v.literal("approved"),
+      v.literal("rejected")
+    ),
+
+    //Activity Timestamps
+    createdAt: v.number(),
+  })
+    .index("by_post", ["postId"])
+    .index("by_post_status", ["postId", "status"])
+    .index("by_author", ["authorId"]),
+
+  //Likes Table
+  likes: defineTable({
+    postId: v.id("posts"),
+    userId: v.optional(v.id("users")), //Anonymous likes allowed
+
+    //Activity Timestamps
+    createdAt: v.number(),
+  })
+    .index("by_post", ["postId"])
+    .index("by_user", ["userId"])
+    .index("by_post_user", ["postId", "userId"]), //To ensure one like per user per post
+
+  //Followers Table
+  follows: defineTable({
+    followerId: v.id("users"), //The user who follows
+    followingId: v.id("users"), //The user being followed
+    createdAt: v.number(),
+  })
+    .index("by_follower", ["followerId"])
+    .index("by_following", ["followingId"])
+    .index("by_relationship", ["followerId", "followingId"]), //To ensure no duplicate follows
+
+  //Statistics Table
+  dailyStats: defineTable({
+    postId: v.id("posts"),
+    date: v.string(), //YYYY-MM-DD format
+    views: v.number(),
+
+    //Activity Timestamps
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_post", ["postId"])
+    .index("by_date", ["date"])
+    .index("by_post_date", ["postId", "date"]),
 });
