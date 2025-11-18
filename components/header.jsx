@@ -21,9 +21,9 @@ const Header = () => {
           <Image
             src="/logo.png"
             alt="CC Logo"
-            width={96}
-            height={32}
-            className="h-8 sm:h-10 w-auto object-contain"
+            width={100}
+            height={42}
+            className="h-12 sm:h-12 w-auto object-contain"
           />
         </Link>
 
