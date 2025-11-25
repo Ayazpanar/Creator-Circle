@@ -2,6 +2,7 @@ import Features from "@/components/features";
 import HeroSection from "@/components/hero-section";
 import MouseEffect from "@/components/mouse-effect";
 import PlatformTabs from "@/components/platform-tabs";
+import StatsCards from "@/components/stats-cards";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <HeroSection />
       <Features />
       <PlatformTabs />
+      <StatsCards />
     </div>
   );
 }
