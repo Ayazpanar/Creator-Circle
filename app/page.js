@@ -3,6 +3,7 @@ import HeroSection from "@/components/hero-section";
 import MouseEffect from "@/components/mouse-effect";
 import PlatformTabs from "@/components/platform-tabs";
 import StatsCards from "@/components/stats-cards";
+import Testimonials from "@/components/testimonials";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <Features />
       <PlatformTabs />
       <StatsCards />
+      <Testimonials />
     </div>
   );
 }
