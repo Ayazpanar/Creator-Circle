@@ -134,3 +134,7 @@
 .card-glass{
   @apply bg-gray-900/50 border-gray-800 hover:border-purple-500/50
 }
+
+html{
+    scroll-behavior: smooth;
+}

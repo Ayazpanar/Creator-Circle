@@ -1,19 +1,16 @@
 import { testimonials } from "@/lib/data";
 import React from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
+import { Card, CardContent } from "./ui/card";
 import Image from "next/image";
 import { Badge } from "./ui/badge";
 import { Star } from "lucide-react";
 
 const Testimonials = () => {
   return (
-    <section className="relative z-10 py-16 sm:py-24 px-4 sm:px-6">
+    <section
+      id="testimonials"
+      className="relative z-10 py-16 sm:py-24 px-4 sm:px-6"
+    >
       <div className="max-w-7xl mx-auto text-center">
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-12 sm:mb-16 ">
           <span className="gradient-text-primary">What creators say</span>
