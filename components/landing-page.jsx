@@ -6,7 +6,6 @@ import PlatformTabs from "./platform-tabs";
 import StatsCards from "./stats-cards";
 import Testimonials from "./testimonials";
 import CtaSection from "./cta-section";
-import Footer from "./footer";
 
 const LandingPage = () => {
   return (
@@ -19,7 +18,6 @@ const LandingPage = () => {
       <StatsCards />
       <Testimonials />
       <CtaSection />
-      <Footer />
     </div>
   );
 };
