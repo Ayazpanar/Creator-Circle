@@ -2,7 +2,6 @@
 import { platformTabs } from "@/lib/data";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
-import clsx from "clsx";
 import {
   Card,
   CardContent,
@@ -11,6 +10,7 @@ import {
   CardTitle,
 } from "./ui/card";
 import { CheckCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const PlatformTabs = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -40,7 +40,7 @@ const PlatformTabs = () => {
                 >
                   <div className="flex items-center gap-4">
                     <div
-                      className={clsx(
+                      className={cn(
                         "h-12 w-12 rounded-xl flex items-center justify-center",
                         activeTab === index
                           ? "bg-linear-to-br from-purple-500 to-blue-500"

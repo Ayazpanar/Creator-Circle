@@ -14,6 +14,10 @@ const Header = () => {
   const { isLoading, isAuthenticated } = useStoreUser();
   const path = usePathname();
 
+  if (path?.startsWith("/dashboard")) {
+    return null;
+  }
+
   return (
     <header className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-3xl px-4">
       <div className="backdrop-blur-md bg-white/10 border-3 border-white/20 rounded-4xl h-12 sm:h-14 px-4 sm:px-5 flex items-center justify-between gap-2 space-x-3 sm:space-x-4">
@@ -46,11 +50,7 @@ const Header = () => {
         <div className="flex items-center gap-2 sm:gap-3 shrink-2">
           <Authenticated>
             <Link href="/dashboard">
-              <Button
-                variant="outline"
-                size="sm"
-                className="hidden sm:flex"
-              >
+              <Button variant="outline" size="sm" className="hidden sm:flex">
                 <LayoutDashboard className="h-4 w-4" />
                 <span className="hidden md:inline ml-2">Dashboard</span>
               </Button>
