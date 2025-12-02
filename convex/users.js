@@ -1,4 +1,6 @@
+import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
+import { internal } from "./_generated/api";
 
 export const store = mutation({
   args: {},
@@ -27,7 +29,7 @@ export const store = mutation({
       name: identity.name ?? "Anonymous",
       email: identity.email,
       tokenIdentifier: identity.tokenIdentifier,
-      username:identity.username ?? "",
+      username: identity.username ?? "",
       imageUrl: identity.pictureUrl,
       createdAt: Date.now(),
       lastActiveAt: Date.now(),
@@ -50,5 +52,40 @@ export const getCurrentUser = query({
     if (!user) throw new Error("User Not Found");
 
     return user;
+  },
+});
+
+export const updateUserName = mutation({
+  args: {
+    username: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const user = await ctx.runQuery(internal.users.getCurrentUser);
+
+    const userNameValidation = /^[a-zA-Z0-9_-]+$/;
+    if (!userNameValidation.test(args.username)) {
+      throw new Error(
+        "Invalid username. It should be only contain letters, numbers, and underscores."
+      );
+    }
+    const userNameLenghtRegex = /^.{3,20}$/;
+    if (!userNameLenghtRegex.test(args.username)) {
+      throw new Error("Username must be between 3 and 20 characters long.");
+    }
+
+    if (args.username === user.username) {
+      const existingUser = await ctx.db
+        .query("users")
+        .withIndex("by_username", (q) => q.eq("username", args.username))
+        .unique();
+      if (existingUser) {
+        throw new Error("Username is already taken.");
+      }
+    }
+    await ctx.db.patch(user._id, {
+      username: args.username,
+      lastActiveAt: Date.now(),
+    });
+    return user._id;
   },
 });

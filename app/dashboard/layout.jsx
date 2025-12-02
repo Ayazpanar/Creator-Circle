@@ -100,7 +100,10 @@ const DashboardLayout = ({ children }) => {
           })}
         </nav>
         <div className="absolute bottom-0 w-full p-4 border-t border-slate-700">
-          <Link href="dashboard/settings">
+          <Link
+            href="/dashboard/settings"
+            onClick={() => setIsSidebarOpen(false)}
+          >
             <Button
               variant="outline"
               className="w-full justify-start rounded-xl p-4 text-slate-300 hover:text-white"
@@ -114,7 +117,7 @@ const DashboardLayout = ({ children }) => {
       </aside>
       <div className="ml-0 lg:ml-64">
         <header className="fixed w-full z-30 bg-slate-800/80 border-b backdrop-blur-md border-slate-700 top-0 right-0 ">
-          <div className="flex items-center justify-between px-4 py-4">
+          <div className="flex items-center justify-between px-4 py-3 lg:px-4">
             <div className="flex items-center space-x-4">
               <Button
                 variant="ghost"
@@ -125,12 +128,12 @@ const DashboardLayout = ({ children }) => {
                 <Menu className="h-5 w-5 lg:hidden text-white" />
               </Button>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 lg:h-16">
               <UserButton />
             </div>
           </div>
         </header>
-        <main className="mt-16">{children}</main>
+        <main className="mt-[60px] lg:mt-[88px]">{children}</main>
       </div>
     </div>
   );
