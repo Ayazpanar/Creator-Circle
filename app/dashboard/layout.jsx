@@ -1,6 +1,8 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { api } from "@/convex/_generated/api";
+import { useConvexQuery } from "@/hooks/use-convex-query";
 import { cn } from "@/lib/utils";
 import { UserButton } from "@clerk/nextjs";
 import {
@@ -26,7 +28,7 @@ const sideBarItems = [
 const DashboardLayout = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const pathName = usePathname();
-
+  const { data: draftPost } = useConvexQuery(api.posts.getUserDraft);
   const toggleSideBar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -89,7 +91,7 @@ const DashboardLayout = ({ children }) => {
                     )}
                   />
                   <span className="font-medium">{item.title}</span>
-                  {item.title === "Create Post" && true && (
+                  {item.title === "Create Post" && draftPost && (
                     <Badge className="ml-auto text-xs bg-orange-500/20 text-orange-300 border-orange-500/30">
                       Draft
                     </Badge>

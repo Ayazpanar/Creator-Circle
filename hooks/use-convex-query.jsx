@@ -42,7 +42,7 @@ export const useConvexMutation = (mutation) => {
     try {
       const response = await mutationFn(...args);
       setData(response);
-      toast.success("username updated success");
+      toast.success("operation success");
       return response;
     } catch (error) {
       setError(error);
