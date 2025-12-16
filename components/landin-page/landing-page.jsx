@@ -1,5 +1,5 @@
 import React from "react";
-import MouseEffect from "./mouse-effect";
+import MouseEffect from "../mouse-effect";
 import HeroSection from "./hero-section";
 import Features from "./features";
 import PlatformTabs from "./platform-tabs";

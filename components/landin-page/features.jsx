@@ -1,6 +1,6 @@
 import { features } from "@/lib/data";
 import React from "react";
-import { Card, CardContent, CardDescription, CardTitle } from "./ui/card";
+import { Card, CardContent, CardDescription, CardTitle } from "../ui/card";
 
 const Features = () => {
   return (
